@@ -1,13 +1,17 @@
 require 'mclight/version'
 require 'minecraft-query'
 require 'wiringpi'
+require 'ruby-mpd'
 
 module Mclight
 
   class Runner
     def execute!
-      Minecraft.new( 'minecraft.kendell.org.uk', Light.new( 1 ) ).update
-      Light.new( 4 ).on
+      led1 = Light.new( 1 )
+      led2 = Light.new( 4 )
+
+      Minecraft.new( 'minecraft.kendell.org.uk', led1 ).update
+      Mpd.new( 'holly.local', led2 ).update
     end
   end
 
@@ -28,6 +32,25 @@ module Mclight
       @io.write( @pin, 0 )
     end
 
+  end
+
+  class Mpd
+
+    def initialize( server, light )
+      @server = server
+      @light = light
+
+      @mpd = MPD.new( @server )
+      @mpd.connect
+    end
+
+    def update
+      if @mpd.stopped?
+        @light.off
+      else
+        @light.on
+      end
+    end
   end
 
   class Minecraft

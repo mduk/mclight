@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'minecraft-query', '~> 1.0.0'
   spec.add_dependency 'wiringpi', '~> 1.1.0'
+  spec.add_dependency 'ruby-mpd', '~> 0.3.0'
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
