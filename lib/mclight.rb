@@ -28,7 +28,7 @@ module Mclight
       @io.write( @pin, 1 )
     end
 
-    def of
+    def off
       @io.write( @pin, 0 )
     end
 
