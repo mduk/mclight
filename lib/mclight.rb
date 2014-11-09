@@ -10,8 +10,13 @@ module Mclight
       led1 = Light.new( 1 )
       led2 = Light.new( 4 )
 
-      Minecraft.new( 'minecraft.kendell.org.uk', led1 ).update
-      Mpd.new( 'holly.local', led2 ).update
+      begin
+        Minecraft.new( 'minecraft.kendell.org.uk', led1 ).update
+      rescue; end
+
+      begin
+        Mpd.new( 'holly.local', led2 ).update
+      rescue; end
     end
   end
 
@@ -51,6 +56,7 @@ module Mclight
         @light.on
       end
     end
+
   end
 
   class Minecraft
