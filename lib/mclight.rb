@@ -6,14 +6,15 @@ module Mclight
 
   class Runner
     def execute!
-      Light.new( 'minecraft.kendell.org.uk', 1 ).update
+      Light.new( 'minecraft.kendell.org.uk', 11111, 1 ).update
     end
   end
 
   class Light
 
-    def initialize( server, pin )
+    def initialize( server, queryPort, pin )
       @server = server
+      @queryPort = queryPort
       @pin = pin
 
       @io = WiringPi::GPIO.new
@@ -21,7 +22,7 @@ module Mclight
     end
 
     def update
-      q = Query::simpleQuery( @server, 25565 )
+      q = Query::simpleQuery( @server, @queryPort )
 
       if q[:numplayers] == "0"
         @io.write( @pin, 0 )
